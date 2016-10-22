@@ -1,0 +1,24 @@
+name: GorgonsEye
+version: 0.1.0
+description: Freezes a player.
+author: Majora320
+website: http://lupinenetwork.com
+main: com.lupinenetwork.gorgonseye.spigot.Main
+depends: [ItemNBTAPI]
+
+commands:
+    freeze:
+        description: Freezes a player.
+        permission: gorgonseye.freeze
+        usage: "§cUsage: /freeze <player>"
+    eye:
+        description: Gives you a stick which can freeze players.
+        permission: gorgonseye.eye
+        usage: "§cUsage: /eye"
+
+permissions:
+    gorgonseye:
+        freeze:
+            description: Lets you freeze a player.
+        eye:
+            description: Lets you give yourself a stick which can freeze players.

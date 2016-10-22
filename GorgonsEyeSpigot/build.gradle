@@ -1,0 +1,4 @@
+dependencies {
+    compile 'org.bukkit:bukkit:1.10.2-R0.1-SNAPSHOT'
+    compile 'de.tr7zw:Item-NBT-API:1.2'
+}

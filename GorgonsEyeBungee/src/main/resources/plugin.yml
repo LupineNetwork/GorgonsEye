@@ -1,0 +1,6 @@
+name: GorgonsEye
+version: 0.1.0
+description: Freezes a player.
+author: Majora320
+website: http://lupinenetwork.com
+main: com.lupinenetwork.gorgonseye.bungee.Main

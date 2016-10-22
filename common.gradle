@@ -1,0 +1,46 @@
+apply plugin: 'java'
+
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+        name 'SpigotMC repo'
+    }
+    maven {
+        url 'https://oss.sonatype.org/content/groups/public/'
+        name 'Bungeecord repo'
+    }
+flatDir {
+       dirs 'libs'
+    }
+}
+
+dependencies {
+    compile 'mysql:mysql-connector-java:6.0.4'
+}
+
+String mavenArtifactId = name
+
+group = 'org.majora320'
+version = '0.1.0-SNAPSHOT'
+
+task sourcesJar(type: Jar, dependsOn: classes, description: 'Creates a jar from the source files.') {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives jar
+    archives sourcesJar
+}
+
+task createFolders(description: 'Creates the source folders if they do not exist.') doLast {
+    sourceSets*.allSource*.srcDirs*.each { File srcDir ->
+        if (!srcDir.isDirectory()) {
+            println "Creating source folder: ${srcDir}"
+            srcDir.mkdirs()
+        }
+    }
+}
