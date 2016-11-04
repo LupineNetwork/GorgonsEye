@@ -18,6 +18,7 @@ package com.lupinenetwork.gorgonseye.spigot.commands;
 
 import com.lupinenetwork.gorgonseye.spigot.database.FrozenPlayerManager;
 import com.lupinenetwork.gorgonseye.spigot.database.GorgonsEyeDatabaseException;
+import java.text.MessageFormat;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -49,7 +50,7 @@ public class FreezeCommand implements CommandExecutor {
             sender.sendMessage(playerDoesNotExistMsg);
         else {
             try {
-                manager.toggleFrozen(player);
+                manager.toggleFrozen(player, sender);
             } catch (GorgonsEyeDatabaseException ex) {
                 throw new RuntimeException(ex);
             }

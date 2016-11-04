@@ -53,11 +53,14 @@ public class Main extends JavaPlugin {
             primaryTableName = Constants.DEFAULT_PRIMARY_TABLE_NAME;
         
         FrozenPlayerManager manager = new FrozenPlayerManager(
-                C.c(getConfig().getString("messages.player-frozen", "&6The player {0} has been frozen!")), 
-                C.c(getConfig().getString("messages.player-unfrozen", "&6The player {0} has been unfrozen.")),
+                C.c(getConfig().getString("messages.player-frozen", "&6The player {0} has been frozen!")),
+                C.c(getConfig().getString("messages.player-unfrozen", "&6The player {0} is no longer frozen.")),
+                C.c(getConfig().getString("messages.you-have-been-frozen", "&cYou have been frozen!")),
+                C.c(getConfig().getString("messages.you-are-no-longer-frozen", "&You are no longer frozen.")),
                 url, username, password, primaryTableName);
         
-        getCommand("freeze").setExecutor(new FreezeCommand(manager, C.c(getConfig().getString("messages.no-such-player", "&cThe player {0} does not exist!"))));
+        getCommand("freeze").setExecutor(new FreezeCommand(manager, 
+                C.c(getConfig().getString("messages.no-such-player", "&cThe player {0} does not exist!"))));
         getCommand("eye").setExecutor(new EyeCommand(
                 C.c(getConfig().getString("messages.must-be-player", "&cYou must be a player to execute this command!")),
                 new ArrayList<String>() {{ add(C.c(getConfig().getString("lore.gorgons-eye", "&bBehold the gaze of administration..."))); }}));

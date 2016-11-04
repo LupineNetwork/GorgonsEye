@@ -48,7 +48,7 @@ public class EyeHitPlayerListener implements Listener {
             return;
         
         try {
-            manager.toggleFrozen(damaged);
+            manager.toggleFrozen(damaged, damager);
         } catch (GorgonsEyeDatabaseException ex) {
             throw new RuntimeException(ex);
         }

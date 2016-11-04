@@ -24,6 +24,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.MessageFormat;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
@@ -31,17 +32,20 @@ import org.bukkit.entity.Player;
  * @author Majora320 &lt;Majora320@gmail.com&gt;
  */
 public class FrozenPlayerManager {
-
     private final String playerFrozenMsg;
     private final String playerUnfrozenMsg;
+    private final String youHaveBeenFrozenMsg;
+    private final String youAreNoLongerFrozenMsg;
     private final String url;
     private final String username;
     private final String password;
     private final String primaryTableName;
 
-    public FrozenPlayerManager(String playerFrozenMsg, String playerUnfrozenMsg, String url, String username, String password, String primaryTableName) {
+    public FrozenPlayerManager(String playerFrozenMsg, String playerUnfrozenMsg, String youHaveBeenFrozenMsg, String youAreNoLongerFrozenMsg, String url, String username, String password, String primaryTableName) {
         this.playerFrozenMsg = playerFrozenMsg;
         this.playerUnfrozenMsg = playerUnfrozenMsg;
+        this.youHaveBeenFrozenMsg = youHaveBeenFrozenMsg;
+        this.youAreNoLongerFrozenMsg = youAreNoLongerFrozenMsg;
         this.url = url;
         this.username = username;
         this.password = password;
@@ -61,7 +65,7 @@ public class FrozenPlayerManager {
         return conn;
     }
 
-    public void toggleFrozen(Player player) throws GorgonsEyeDatabaseException {
+    public void toggleFrozen(Player player, CommandSender sender) throws GorgonsEyeDatabaseException {
         try (Connection conn = openConnection()) {
             if (isPlayerFrozen(player)) {
                 try (PreparedStatement delete = conn.prepareStatement("DELETE FROM " + primaryTableName + " WHERE (player_name = ?)")) {
@@ -69,14 +73,16 @@ public class FrozenPlayerManager {
                     delete.execute();
                 }
                 
-                player.sendMessage(MessageFormat.format(playerUnfrozenMsg, player.getName()));
+                sender.sendMessage(MessageFormat.format(playerUnfrozenMsg, player.getName()));
+                player.sendMessage(youAreNoLongerFrozenMsg);
             } else {
                 try (PreparedStatement insert = conn.prepareStatement("INSERT INTO " + primaryTableName + " (player_name) VALUES (?)")) {
                     insert.setString(1, player.getName());
                     insert.execute();
                 }
                 
-                player.sendMessage(MessageFormat.format(playerFrozenMsg, player.getName()));
+                sender.sendMessage(MessageFormat.format(playerFrozenMsg, player.getName()));
+                player.sendMessage(youHaveBeenFrozenMsg);
             }
         } catch (SQLException ex) {
             throw new GorgonsEyeDatabaseException(ex);

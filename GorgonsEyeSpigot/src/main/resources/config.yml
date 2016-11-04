@@ -11,7 +11,9 @@ messages:
     must-be-player: "&cYou must be a player to execute this command!"
     no-such-player: "&cThe player {0} does not exist!"
     player-frozen: "&6The player {0} has been frozen!"
-    player-unfrozen: "&6The player {0} has been unfrozen."
+    player-unfrozen: "&6The player {0} is no longer frozen."
+    you-have-been-frozen: "&cYou have been frozen!"
+    you-are-no-longer-frozen: "&6You are no longer frozen."
     
 lore:
     gorgons-eye: "&bBehold the gaze of administration..."
