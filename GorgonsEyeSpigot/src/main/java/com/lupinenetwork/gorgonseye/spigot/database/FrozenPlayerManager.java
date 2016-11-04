@@ -71,7 +71,7 @@ public class FrozenPlayerManager {
                 
                 player.sendMessage(MessageFormat.format(playerUnfrozenMsg, player.getName()));
             } else {
-                try (PreparedStatement insert = conn.prepareStatement("INSERT INTO " + primaryTableName + " (player_name) VALUES ?")) {
+                try (PreparedStatement insert = conn.prepareStatement("INSERT INTO " + primaryTableName + " (player_name) VALUES (?)")) {
                     insert.setString(1, player.getName());
                     insert.execute();
                 }
