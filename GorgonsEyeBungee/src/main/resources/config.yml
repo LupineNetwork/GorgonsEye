@@ -6,9 +6,3 @@ mysql:
     
     # Where everything is stored
     table-name: gorgons_eye
-    
-messages:
-    must-be-player: "&cYou must be a player to execute this command!"
-    no-such-player: "&cThe player {0} does not exist!"
-    player-frozen: "&6The player {0} has been frozen!"
-    player-unfrozen: "&6The player {0} has been unfrozen."

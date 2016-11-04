@@ -30,17 +30,12 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
  * @author Majora320 &lt;Majora320@gmail.com&gt;
  */
 public class FrozenPlayerManager {
-
-    private final String playerFrozenMsg;
-    private final String playerUnfrozenMsg;
     private final String url;
     private final String username;
     private final String password;
     private final String primaryTableName;
 
-    public FrozenPlayerManager(String playerFrozenMsg, String playerUnfrozenMsg, String url, String username, String password, String primaryTableName) {
-        this.playerFrozenMsg = playerFrozenMsg;
-        this.playerUnfrozenMsg = playerUnfrozenMsg;
+    public FrozenPlayerManager(String url, String username, String password, String primaryTableName) {
         this.url = url;
         this.username = username;
         this.password = password;
@@ -59,29 +54,7 @@ public class FrozenPlayerManager {
         initializeDatabase(conn);
         return conn;
     }
-
-    public void toggleFrozen(ProxiedPlayer player) throws GorgonsEyeDatabaseException {
-        try (Connection conn = openConnection()) {
-            if (isPlayerFrozen(player)) {
-                try (PreparedStatement delete = conn.prepareStatement("DELETE FROM " + primaryTableName + " WHERE (player_name = ?)")) {
-                    delete.setString(1, player.getName());
-                    delete.execute();
-                }
-                
-                player.sendMessage(MessageFormat.format(playerUnfrozenMsg, player.getName()));
-            } else {
-                try (PreparedStatement insert = conn.prepareStatement("INSERT INTO " + primaryTableName + " (player_name) VALUES ?")) {
-                    insert.setString(1, player.getName());
-                    insert.execute();
-                }
-                
-                player.sendMessage(MessageFormat.format(playerFrozenMsg, player.getName()));
-            }
-        } catch (SQLException ex) {
-            throw new GorgonsEyeDatabaseException(ex);
-        }
-    }
-
+    
     public boolean isPlayerFrozen(ProxiedPlayer player) throws GorgonsEyeDatabaseException {
         try (Connection conn = openConnection();
                 PreparedStatement stmt = conn.prepareStatement("SELECT player_name FROM " + primaryTableName + " WHERE (player_name = ?)")) {

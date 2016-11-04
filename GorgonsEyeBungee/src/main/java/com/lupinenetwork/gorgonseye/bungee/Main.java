@@ -68,9 +68,8 @@ public class Main extends Plugin {
         if (!primaryTableName.matches("^[A-Za-z_]*$"))
             primaryTableName = Constants.DEFAULT_PRIMARY_TABLE_NAME;
         
-        getProxy().getPluginManager().registerListener(this, new PlayerTriedToExecuteCommandListener(new FrozenPlayerManager(
-                C.c(config.getString("messages.player-frozen", "&6The player {0} has been frozen!")), 
-                C.c(config.getString("messages.player-unfrozen", "&6The player {0} has been unfrozen.")), 
-                url, username, password, primaryTableName), C.c(config.getString("messages.command-blocked", "&cYou cannot execute commands while frozen!"))));
+        getProxy().getPluginManager().registerListener(this, new PlayerTriedToExecuteCommandListener(
+                new FrozenPlayerManager(url, username, password, primaryTableName),
+                C.c(config.getString("messages.command-blocked", "&cYou cannot execute commands while frozen!"))));
     }
 }

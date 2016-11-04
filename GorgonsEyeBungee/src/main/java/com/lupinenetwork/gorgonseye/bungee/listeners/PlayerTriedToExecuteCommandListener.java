@@ -18,8 +18,6 @@ package com.lupinenetwork.gorgonseye.bungee.listeners;
 
 import com.lupinenetwork.gorgonseye.bungee.database.FrozenPlayerManager;
 import com.lupinenetwork.gorgonseye.bungee.database.GorgonsEyeDatabaseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ChatEvent;
